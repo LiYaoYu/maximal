@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import signal
 import sys
@@ -31,7 +31,7 @@ def hide(win):
     if win.id not in handled and match(win):
         hide = win.get_full_property(hide_atom, X.AnyPropertyType)
         handled[win.id] = hide and hide.value
-        win.change_property(hide_atom, Xatom.CARDINAL, 32, [1])
+        win.change_property(hide_atom, Xatom.WM_HINTS, 32, [2, 0, 0, 0, 0])
 
 
 def unhide(win_id, prev_value):
@@ -39,7 +39,7 @@ def unhide(win_id, prev_value):
     if prev_value is None:
         win.delete_property(hide_atom)
     elif prev_value is not True:
-        win.change_property(hide_atom, Xatom.CARDINAL, 32, prev_value)
+        win.change_property(hide_atom, Xatom.WM_HINTS, 32, prev_value)
 
 
 def handle(event):
@@ -79,7 +79,7 @@ def exit(*args):
 handled = {}
 dpy = display.Display()
 root = dpy.screen().root
-hide_atom = dpy.intern_atom('_GTK_HIDE_TITLEBAR_WHEN_MAXIMIZED')
+hide_atom = dpy.intern_atom('_MOTIF_WM_HINTS')
 type_atom = dpy.intern_atom('_NET_WM_WINDOW_TYPE')
 normal_atom = dpy.intern_atom('_NET_WM_WINDOW_TYPE_NORMAL')
 whitelist = list(parse('MAXIMAL_WHITELIST'))

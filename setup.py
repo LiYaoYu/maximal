@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from setuptools import setup
 
 setup(name='maximal',
@@ -7,4 +9,4 @@ setup(name='maximal',
       author='Carlos Pita',
       author_email='carlosjosepita@gmail.com',
       install_requires=['python-xlib'],
-      scripts=['maximal'])
+      scripts=['maximal.py'])
